@@ -12,4 +12,4 @@ Build the Dockerfile
 
 Run in development mode, mounting the current directory as a volume
 
-    docker run -it --rm -v $PWD:/opt/email-sender --publish=7788:9999 --name cdn email-sender /bin/bash
+    docker run -it --rm -v $PWD:/opt/email-sender --publish=7788:9999 --name email email-sender /bin/bash
