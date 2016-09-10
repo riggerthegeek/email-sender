@@ -29,4 +29,4 @@ RUN npm install
 EXPOSE 9999
 
 # Run run run
-CMD npm start | bunyan
+CMD npm start
