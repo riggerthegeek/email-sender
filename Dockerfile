@@ -23,6 +23,7 @@ ENV SENT_FLAG sent
 ENV TIMEOUT 30000
 
 # Install the dependencies
+RUN npm install
 
 # Expose the port
 EXPOSE 9999
