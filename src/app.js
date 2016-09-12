@@ -20,12 +20,13 @@ const MongoClient = require("mongodb").MongoClient;
 
 const config = {
     collection: process.env.MONGODB_COLLECTION,
-    countFlag: process.env.COUNT_FLAG,
+    countFlag: process.env.COUNT_FLAG || "sendAttempts",
     domain: process.env.MAILGUN_DOMAIN,
     key: process.env.MAILGUN_KEY,
-    retry: Number(process.env.RETRY),
-    sentFlag: process.env.SENT_FLAG,
-    timeout: Number(process.env.TIMEOUT),
+    override: process.env.EMAIL_OVERRIDE,
+    retry: Number(process.env.RETRY || 3),
+    sentFlag: process.env.SENT_FLAG || "sent",
+    timeout: Number(process.env.TIMEOUT || 30000),
     url: process.env.MONGODB_URL
 };
 
@@ -112,6 +113,15 @@ class Processor {
             html: email.html,
             text: email.text
         };
+
+        /* Override the email */
+        if (config.override) {
+            email.to = [{
+                emailAddress: config.override
+            }];
+            email.cc = [];
+            email.bcc = [];
+        }
 
         /* Stringify the emails */
         obj.from = Processor.stringifyEmail(email.from);
